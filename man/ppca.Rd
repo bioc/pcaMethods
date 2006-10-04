@@ -27,19 +27,23 @@
   In general few components are sufficient for reasonable estimation
   accuracy. See also the package documentation for further discussion
   on what kind of data PCA-based missing value estimation is advisable.\cr
-  Please not that results obtained with \code{Q2} cross validation may
-  not reflect the method's actual accuracy because the signs of scores
-  and loadings may be different for independent runs. This is because
-  for initial setup of the transformation matrix random numbers are used.\cr
 
   Requires \code{MASS}
 }
 \details{
   \bold{Complexity:} Runtime is linear in the number of data,
-  number of data dimensions and number of principal components.
+  number of data dimensions and number of principal components.\cr
+
+  \bold{Convergence:} The algorithms seems not to converge to proper results
+  in rare cases when unfavourable initial random numbers were chosen. 
+  To avoid this you can set the seed (parameter seed) of the
+  random number generator. \cr
+  If used for missing value estimation, results may be checked by simply
+  running the algorithm several times with changing seed, if the estimated
+  values show little variance the algorithm converged well.
 }
 \usage{
-  ppca(Matrix, nPcs=2, center = TRUE, seed = NA, ...)
+  ppca(Matrix, nPcs, center = TRUE, completeObs = TRUE, seed = NA, ...)
 }
 \arguments{
   \item{Matrix}{\code{matrix} -- Data containing the variables in
@@ -49,8 +53,10 @@
     The preciseness of the missing value estimation depends on the
     number of components, which should resemble the internal structure
     of the data.}
-  \item{center}{Mean center the data if TRUE}
-  \item{seed}{Set the seed for the random number generator. PPCA creates
+  \item{center}{\code{boolean} Mean center the data if TRUE}
+  \item{completeObs}{\code{boolean} Return the complete observations if TRUE. This
+    is the original data with NA values filled with the estimated values.}
+  \item{seed}{\code{numeric} Set the seed for the random number generator. PPCA creates
     fills the initial loading matrix with random numbers chosen from a normal
     distribution. Thus results may vary slightly. Set the seed for
     exact reproduction of your results.}
@@ -76,7 +82,7 @@ cond <- matrix(runif(rows * cols),rows,cols) < 0.1
 metaboliteData[cond] <- NA
 
 ## Perform probabilistic PCA using the 3 largest components
-result <- pca(metaboliteData, method="ppca", nPcs=3, center=TRUE, scale="none")
+result <- pca(metaboliteData, method="ppca", nPcs=3, center=TRUE)
 
 ## Get the estimated principal axes (loadings)
 loadings <- result@loadings

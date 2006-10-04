@@ -1,6 +1,6 @@
 Package: pcaMethods
 Version: 1.2.0
-Date: 2006-07-26
+Date: 2006-10-04
 Author: Wolfram Stacklies, Henning Redestig
 Maintainer: Wolfram Stacklies <stacklies@mpimp-golm.mpg.de> 
 Title: A collection of PCA methods.
