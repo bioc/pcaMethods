@@ -114,13 +114,14 @@ This is because BPCA was developed especially for missing value estimation.
 The algorithm does not force orthogonality between factor loadings,
 as a result factor loadings are not necessarily orthogonal.
 However, the BPCA authors found that including an orthogonality criterion made the
-predictions worse.\cr
+predictions worse.
 The authors also state that the difference between ``real'' and predicted
 Eigenvalues becomes larger when the number of observation is smaller,
 because it reflects the lack of information to accurately determine
 true factor loadings from the limited and noisy data.
 As a result, weights of factors to predict missing values are not the same as
-with conventional PCA, buth the missing value estimation is improved.\cr
+with conventional PCA, buth the missing value estimation is improved.
+
 BPCA was proposed by Oba et.~al \cite{oba03}.
 The method available in this package is a port of the \texttt{bpca} Matlab
 script also provided by the authors\footnote{
